@@ -1,0 +1,46 @@
+CREATE TABLE BOOKS(
+ BookID int (10) NOT NULL,
+Genre char(15) NOT NULL,
+PageLength int(10) NOT NULL,
+Author char(20) NOT NULL,
+bookName char(50)NULL,
+CONSTRAINT BookID_PK PRIMARY KEY(BookID)
+);
+
+CREATE table SHELVEROW(
+ BookID int (10) NOT NULL,
+ShelveRowNumber int(10)Not NULL,
+CONSTRAINT ShelveRowNumber_pk PRIMARY KEY(ShelveRowNumber),
+CONSTRAINT ShelvesRow_FK FOREIGN KEY(BookID)
+REFERENCES BOOKS(BookID)
+);
+CREATE TABLE shelveSection(
+ShelveRowNumber int(10)Not NULL,
+shelveSectionNumber int(10) NOT NULL,
+CONSTRAINT ShelveSection_pk PRIMARY KEY(shelveSectionNumber),
+CONSTRAINT ShelvesSec_FK FOREIGN KEY(ShelveRowNumber)
+REFERENCES SHELVEROW(ShelveRowNumber)
+
+);
+
+INSERT INTO BOOKS(BookID, Genre, PageLength, Author,bookName)
+VALUES('1','Horror','150','Willams','How to run the streets');
+
+
+
+
+INSERT INTO BOOKS(BookID, Genre, PageLength, Author,bookName)
+VALUES('3','humor','150','jimbo','How to run ');
+
+INSERT INTO SHELVEROW(BookID,ShelveRowNumber)
+VALUES('3','3');
+
+INSERT INTO shelveSection(ShelveRowNumber,shelveSectionNumber)
+values('3','3');
+
+SELECT* 
+FROM BOOKS,shelveSection,SHELVEROW
+WHERE BOOKS.BookID = SHELVEROW.BookID
+AND shelveSection.ShelveRowNumber = SHELVEROW.ShelveRowNumber
+
+
